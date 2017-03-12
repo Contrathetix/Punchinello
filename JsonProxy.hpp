@@ -14,7 +14,9 @@ namespace Punchinello::JSON {
 			std::ifstream File(Filename);
 			File >> Data;
 			File.close();
-		} catch (std::exception& e) {}
+		} catch (const std::exception& e) {
+			std::cout << e.what() << std::endl;
+		}
 
 		Data[Key] = Value;
 
@@ -22,7 +24,9 @@ namespace Punchinello::JSON {
 			std::ofstream file(Filename);
 			file << std::setw(4) << Data << std::endl;
 			file.close();
-		} catch (std::exception& e) {}
+		} catch (const std::exception& e) {
+			std::cout << e.what() << std::endl;
+		} catch (...) {}
 	}
 
 	template <typename T>
@@ -35,7 +39,9 @@ namespace Punchinello::JSON {
 			File >> Data;
 			File.close();
 			DefaultReturnValue = Data[Key];
-		} catch (std::exception& e) {}
+		} catch (const std::exception& e) {
+			std::cout << e.what() << std::endl;
+		} catch (...) {}
 
 		return DefaultReturnValue;
 	}
