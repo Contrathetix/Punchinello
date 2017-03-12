@@ -16,7 +16,7 @@ namespace Punchinello::Commands {
 	static ParamInfo kParams_JsonGetString[3] = {
 		{ "Filename", kParamType_String, 0 },
 		{ "Key", kParamType_String, 0 },
-		{ "DefaultReturn", kParamType_String, 0 },
+		{ "DefaultReturn", kParamType_String, 0 }
 	};
 	static CommandInfo kJsonGetStringCommand = {
 		"JsonGetString",

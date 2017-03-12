@@ -3,7 +3,7 @@
 #include <fstream>
 #include "json.hpp"
 
-namespace JSON {
+namespace Punchinello::JSON {
 
 	template <typename T>
 	void SetValue(const std::string Filename, const std::string Key, T Value) {
