@@ -1,0 +1,8 @@
+.git
+.vs
+Debug
+Release
+lib
+obse
+common
+json.hpp

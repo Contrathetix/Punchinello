@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="dllmain.c" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="ScriptCommands.cpp">
+      <Filter>punchinello</Filter>
+    </ClCompile>
+    <ClCompile Include="Logging.cpp">
+      <Filter>punchinello</Filter>
+    </ClCompile>
+    <ClCompile Include="Interface.cpp">
+      <Filter>punchinello</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="exports.def" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="json.hpp">
+      <Filter>json</Filter>
+    </ClInclude>
+    <ClInclude Include="JsonProxy.hpp">
+      <Filter>punchinello</Filter>
+    </ClInclude>
+    <ClInclude Include="ScriptCommands.hpp">
+      <Filter>punchinello</Filter>
+    </ClInclude>
+    <ClInclude Include="Interface.hpp">
+      <Filter>punchinello</Filter>
+    </ClInclude>
+    <ClInclude Include="Logging.hpp">
+      <Filter>punchinello</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="json">
+      <UniqueIdentifier>{351e2839-05d5-4ee0-827c-71c0246c51d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="punchinello">
+      <UniqueIdentifier>{71fbd082-4939-4c0c-bf0b-3342d89a1a68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="lib">
+      <UniqueIdentifier>{f366621b-4d77-43c2-9200-f48128034bf9}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="lib\common.lib">
+      <Filter>lib</Filter>
+    </Library>
+    <Library Include="lib\obse.lib">
+      <Filter>lib</Filter>
+    </Library>
+  </ItemGroup>
+</Project>
