@@ -1,16 +1,10 @@
-#pragma once
 #include "ScriptCommands.hpp"
 
-namespace Punchinello::Commands {
+namespace Punchinello::ScriptCommands {
 
-	void RegisterCommands(const ::OBSEInterface* obse) {
-
-		obse->SetOpcodeBase(0x2000);
-		obse->RegisterCommand(&kJsonGetStringCommand);
-
-	}
-
-	bool Cmd_JsonGetString_Execute(COMMAND_ARGS) {
+	// input = Filename:string, Key:string, DefaultReturn:string
+	// output = the specified json string value, DefaultReturn if error
+	static bool Cmd_Punchinello_JsonGetString_Execute(COMMAND_ARGS) {
 
 		Console_Print("JsonGetString, running...");
 
@@ -25,16 +19,56 @@ namespace Punchinello::Commands {
 			return true;
 		}
 
+		Punchinello::Interfaces::kOBSEStringVar->Assign(PASS_COMMAND_ARGS, DefaultReturn);
+
 		if (strlen(Filename) < 1 || strlen(Key) < 1) {
-			Log_Print("JsonGetString(%s, %s, %s) --> unable to read parameters");
-			Console_Print("JsonGetString(%s, %s, %s) --> unable to read parameters");
-			Punchinello::Interface::GetStringInterface()->Assign(PASS_COMMAND_ARGS, DefaultReturn);
+
+			Log_Print("JsonGetString, %s, %s, %s -> unable to read parameters");
+			Console_Print("JsonGetString, %s, %s, %s -> unable to read parameters");
+
 		} else {
-			const char* Value = "Some Value From Json";
-			Punchinello::Interface::GetStringInterface()->Assign(PASS_COMMAND_ARGS, Value);
+
+			nlohmann::json Data;
+			std::string Filepath(Filename);
+			Filepath = Punchinello::Interfaces::kOblivionDirectory + Filepath;
+			Log_Print("JsonGetString, filepath (%s)", Filepath);
+
+			try {
+				std::ifstream File(Filepath);
+				File >> Data;
+				File.close();
+				std::string Value = Data[Key];
+				Log_Print("JsonGetString, %s, %s, %s -> %s", Filename, Key, DefaultReturn, Value);
+				Punchinello::Interfaces::kOBSEStringVar->Assign(PASS_COMMAND_ARGS, Value.c_str());
+				free(&Value);
+			} catch (const std::exception& e) {
+				Log_Print("JsonGetString, error (%s)", e.what());
+			} catch (...) {}
+
 		}
+
+		free(&Filename); free(&Key); free(&DefaultReturn);
 
 		return true;
 	}
+
+	ParamInfo kParams_JsonGetString[3] = {
+		{ "Filename", kParamType_String, 0 },
+		{ "Key", kParamType_String, 0 },
+		{ "DefaultReturn", kParamType_String, 0 }
+	};
+
+	CommandInfo kCommandInfo_JsonGetString = {
+		"JsonGetString",
+		"",
+		0,
+		"Fetch string value from JSON, returns DefaultReturn if unable to fetch value",
+		0,
+		3,
+		kParams_JsonGetString,
+		Cmd_Punchinello_JsonGetString_Execute
+	};
+
+	
 
 }

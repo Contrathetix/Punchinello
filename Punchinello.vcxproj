@@ -65,8 +65,7 @@
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>None</DebugInformationFormat>
       <ForcedIncludeFiles>stdafx.h;obse_common/obse_prefix.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -79,7 +78,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PrecompiledHeaderFile>obse/stdafx.h</PrecompiledHeaderFile>
       <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
-      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <WholeProgramOptimization>true</WholeProgramOptimization>
       <OmitDefaultLibName>true</OmitDefaultLibName>
     </ClCompile>
@@ -88,14 +87,17 @@
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>$(SolutionDir)lib\obse.lib;$(SolutionDir)lib\common.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>lib\common.lib;lib\obse.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib\</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
       <OptimizeReferences>true</OptimizeReferences>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
       <NoEntryPoint>false</NoEntryPoint>
       <FullProgramDatabaseFile>false</FullProgramDatabaseFile>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <TurnOffAssemblyGeneration>true</TurnOffAssemblyGeneration>
     </Link>
     <PostBuildEvent>
       <Message>
@@ -104,10 +106,12 @@
       </Command>
     </PostBuildEvent>
     <ProjectReference>
-      <LinkLibraryDependencies>false</LinkLibraryDependencies>
+      <LinkLibraryDependencies>
+      </LinkLibraryDependencies>
     </ProjectReference>
     <ProjectReference>
-      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+      <UseLibraryDependencyInputs>
+      </UseLibraryDependencyInputs>
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -116,8 +120,7 @@
       <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)..\;$(SolutionDir)..\common\;$(SolutionDir)..\obse\;$(SolutionDir)..\obse\obse;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;OBLIVION_VERSION=0x010201A0;OBLIVION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
-      <PrecompiledHeader>
-      </PrecompiledHeader>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>None</DebugInformationFormat>
       <ForcedIncludeFiles>stdafx.h;obse_common/obse_prefix.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -138,12 +141,13 @@
       <CompileAsWinRT>false</CompileAsWinRT>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PrecompiledHeaderFile>obse/stdafx.h</PrecompiledHeaderFile>
-      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <OmitDefaultLibName>true</OmitDefaultLibName>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(SolutionDir)lib\obse.lib;$(SolutionDir)lib\common.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)lib\</AdditionalLibraryDirectories>
+      <AdditionalDependencies>lib\common.lib;lib\obse.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>
+      </AdditionalLibraryDirectories>
       <ModuleDefinitionFile>exports.def</ModuleDefinitionFile>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
@@ -158,10 +162,14 @@
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
       <NoEntryPoint>false</NoEntryPoint>
       <FullProgramDatabaseFile>false</FullProgramDatabaseFile>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <TurnOffAssemblyGeneration>true</TurnOffAssemblyGeneration>
     </Link>
     <ProjectReference>
-      <LinkLibraryDependencies>false</LinkLibraryDependencies>
-      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
+      <LinkLibraryDependencies>
+      </LinkLibraryDependencies>
+      <UseLibraryDependencyInputs>
+      </UseLibraryDependencyInputs>
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -172,7 +180,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Interface.cpp" />
+    <ClCompile Include="Interfaces.cpp" />
     <ClCompile Include="Logging.cpp" />
     <ClCompile Include="ScriptCommands.cpp" />
     <ClCompile Include="dllmain.c">
@@ -187,7 +195,7 @@
     <None Include="exports.def" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Interface.hpp" />
+    <ClInclude Include="Interfaces.hpp" />
     <ClInclude Include="Logging.hpp" />
     <ClInclude Include="ScriptCommands.hpp" />
     <ClInclude Include="json.hpp" />

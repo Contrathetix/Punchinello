@@ -1,32 +1,27 @@
+#pragma once
+
 // obse includes
 #include "obse/PluginAPI.h"
 
 // project includes
 #include "Logging.hpp"
-#include "Interface.hpp"
+#include "Interfaces.hpp"
 
+// json includes
+#include <exception>
+#include <fstream>
+//#include "JsonProxy.hpp"
+#include "json.hpp"
 
-namespace Punchinello::Commands {
+namespace Punchinello::ScriptCommands {
 
-	void RegisterCommands(const ::OBSEInterface* obse);
+	extern CommandInfo kCommandInfo_JsonGetString;
+	//extern CommandInfo kCommandInfo_JsonSetString;
 
-	// input = Filename:string, Key:string, DefaultReturn:string
-	// output = the specified json string value, DefaultReturn if error
-	bool Cmd_JsonGetString_Execute(COMMAND_ARGS);
-	static ParamInfo kParams_JsonGetString[3] = {
-		{ "Filename", kParamType_String, 0 },
-		{ "Key", kParamType_String, 0 },
-		{ "DefaultReturn", kParamType_String, 0 }
-	};
-	static CommandInfo kJsonGetStringCommand = {
-		"JsonGetString",
-		"",
-		0,
-		"Fetch string value from JSON, returns DefaultReturn if unable to fetch value",
-		0,
-		3,
-		kParams_JsonGetString,
-		Cmd_JsonGetString_Execute
-	};
+	//extern CommandInfo kCommandInfo_JsonGetFloat;
+	//extern CommandInfo kCommandInfo_JsonSetFloat;
+
+	//extern CommandInfo kCommandInfo_JsonGetInt;
+	//extern CommandInfo kCommandInfo_JsonSetInt;
 
 }

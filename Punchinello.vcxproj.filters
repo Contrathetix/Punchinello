@@ -4,13 +4,13 @@
     <ClCompile Include="dllmain.c" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ScriptCommands.cpp">
-      <Filter>punchinello</Filter>
+      <Filter>Punchinello</Filter>
     </ClCompile>
     <ClCompile Include="Logging.cpp">
-      <Filter>punchinello</Filter>
+      <Filter>Punchinello</Filter>
     </ClCompile>
-    <ClCompile Include="Interface.cpp">
-      <Filter>punchinello</Filter>
+    <ClCompile Include="Interfaces.cpp">
+      <Filter>Punchinello</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -18,38 +18,38 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="json.hpp">
-      <Filter>json</Filter>
+      <Filter>JSON</Filter>
     </ClInclude>
     <ClInclude Include="JsonProxy.hpp">
-      <Filter>punchinello</Filter>
+      <Filter>Punchinello</Filter>
     </ClInclude>
     <ClInclude Include="ScriptCommands.hpp">
-      <Filter>punchinello</Filter>
-    </ClInclude>
-    <ClInclude Include="Interface.hpp">
-      <Filter>punchinello</Filter>
+      <Filter>Punchinello</Filter>
     </ClInclude>
     <ClInclude Include="Logging.hpp">
-      <Filter>punchinello</Filter>
+      <Filter>Punchinello</Filter>
+    </ClInclude>
+    <ClInclude Include="Interfaces.hpp">
+      <Filter>Punchinello</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="json">
-      <UniqueIdentifier>{351e2839-05d5-4ee0-827c-71c0246c51d4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="punchinello">
+    <Filter Include="Punchinello">
       <UniqueIdentifier>{71fbd082-4939-4c0c-bf0b-3342d89a1a68}</UniqueIdentifier>
     </Filter>
-    <Filter Include="lib">
+    <Filter Include="Resource">
       <UniqueIdentifier>{f366621b-4d77-43c2-9200-f48128034bf9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="JSON">
+      <UniqueIdentifier>{351e2839-05d5-4ee0-827c-71c0246c51d4}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\common.lib">
-      <Filter>lib</Filter>
+      <Filter>Resource</Filter>
     </Library>
     <Library Include="lib\obse.lib">
-      <Filter>lib</Filter>
+      <Filter>Resource</Filter>
     </Library>
   </ItemGroup>
 </Project>
