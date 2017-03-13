@@ -12,9 +12,45 @@
     <ClCompile Include="Interfaces.cpp">
       <Filter>Punchinello</Filter>
     </ClCompile>
+    <ClCompile Include="..\obse\obse\GameActorValues.cpp">
+      <Filter>OBSE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\obse\obse\GameAPI.cpp">
+      <Filter>OBSE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\obse\obse\GameBSExtraData.cpp">
+      <Filter>OBSE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\obse\obse\GameData.cpp">
+      <Filter>OBSE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\obse\obse\GameExtraData.cpp">
+      <Filter>OBSE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\obse\obse\GameObjects.cpp">
+      <Filter>OBSE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\obse\obse\GameTasks.cpp">
+      <Filter>OBSE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\obse\obse\GameTypes.cpp">
+      <Filter>OBSE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\obse\obse\NiAPI.cpp">
+      <Filter>OBSE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\obse\obse\NiNodes.cpp">
+      <Filter>OBSE</Filter>
+    </ClCompile>
+    <ClCompile Include="..\obse\obse\Script.cpp">
+      <Filter>OBSE</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="exports.def" />
+    <None Include="..\obse\obse\GameRTTI_1_2_416.inl">
+      <Filter>OBSE</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="json.hpp">
@@ -32,6 +68,48 @@
     <ClInclude Include="Interfaces.hpp">
       <Filter>Punchinello</Filter>
     </ClInclude>
+    <ClInclude Include="..\obse\obse\GameActorValues.h">
+      <Filter>OBSE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\obse\obse\GameAPI.h">
+      <Filter>OBSE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\obse\obse\GameBSExtraData.h">
+      <Filter>OBSE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\obse\obse\GameData.h">
+      <Filter>OBSE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\obse\obse\GameExtraData.h">
+      <Filter>OBSE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\obse\obse\GameObjects.h">
+      <Filter>OBSE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\obse\obse\GameRTTI.h">
+      <Filter>OBSE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\obse\obse\GameTasks.h">
+      <Filter>OBSE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\obse\obse\GameTypes.h">
+      <Filter>OBSE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\obse\obse\NiAPI.h">
+      <Filter>OBSE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\obse\obse\NiNodes.h">
+      <Filter>OBSE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\obse\obse\ParamInfos.h">
+      <Filter>OBSE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\obse\obse\PluginAPI.h">
+      <Filter>OBSE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\obse\obse\Script.h">
+      <Filter>OBSE</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Punchinello">
@@ -42,6 +120,9 @@
     </Filter>
     <Filter Include="JSON">
       <UniqueIdentifier>{351e2839-05d5-4ee0-827c-71c0246c51d4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OBSE">
+      <UniqueIdentifier>{9e46569e-6aab-4fda-9422-c767d829d9e9}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

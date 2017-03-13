@@ -1,7 +1,7 @@
 // obse includes
 #include "obse/PluginAPI.h"
-#include "obse/GameAPI.h"
 #include "obse/ParamInfos.h"
+#include "obse/GameAPI.h"
 
 // project includes
 #include "Logging.hpp"
@@ -58,8 +58,9 @@ extern "C" {
 		}
 
 		obse->SetOpcodeBase(0x2000);
-		//obse->RegisterCommand(&Punchinello::ScriptCommands::kCommandInfo_JsonGetString);
 		obse->RegisterTypedCommand(&Punchinello::ScriptCommands::kCommandInfo_JsonGetString, kRetnType_String);
+		obse->RegisterCommand(&Punchinello::ScriptCommands::kCommandInfo_JsonGetFloat);
+		obse->RegisterCommand(&Punchinello::ScriptCommands::kCommandInfo_JsonGetInt);
 
 		Log_Print("Load, finished loading");
 

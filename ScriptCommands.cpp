@@ -2,52 +2,49 @@
 
 namespace Punchinello::ScriptCommands {
 
-	// input = Filename:string, Key:string, DefaultReturn:string
-	// output = the specified json string value, DefaultReturn if error
 	static bool Cmd_Punchinello_JsonGetString_Execute(COMMAND_ARGS) {
 
-		Console_Print("JsonGetString, running...");
-
 		*result = 0;
-
-		//Parameters
-		char Filename[512];
-		char Key[512];
-		char DefaultReturn[512];
+		char Filename[512], Key[512], DefaultReturn[512];
 
 		if (!ExtractArgs(PASS_EXTRACT_ARGS, &Filename, &Key, &DefaultReturn)) {
 			return true;
 		}
 
-		Punchinello::Interfaces::kOBSEStringVar->Assign(PASS_COMMAND_ARGS, DefaultReturn);
+		std::string TempStr(DefaultReturn);
+		TempStr = Punchinello::JSON::GetValue(Filename, Key, TempStr);
+		Punchinello::Interfaces::kOBSEStringVar->Assign(PASS_COMMAND_ARGS, TempStr.c_str());
+		free(&TempStr);
 
-		if (strlen(Filename) < 1 || strlen(Key) < 1) {
+		return true;
+	}
 
-			Log_Print("JsonGetString, %s, %s, %s -> unable to read parameters");
-			Console_Print("JsonGetString, %s, %s, %s -> unable to read parameters");
+	static bool Cmd_Punchinello_JsonGetInt_Execute(COMMAND_ARGS) {
 
-		} else {
+		*result = 0;
+		char Filename[512], Key[512];
+		UInt32 DefaultReturn;
 
-			nlohmann::json Data;
-			std::string Filepath(Filename);
-			Filepath = Punchinello::Interfaces::kOblivionDirectory + Filepath;
-			Log_Print("JsonGetString, filepath (%s)", Filepath);
-
-			try {
-				std::ifstream File(Filepath);
-				File >> Data;
-				File.close();
-				std::string Value = Data[Key];
-				Log_Print("JsonGetString, %s, %s, %s -> %s", Filename, Key, DefaultReturn, Value);
-				Punchinello::Interfaces::kOBSEStringVar->Assign(PASS_COMMAND_ARGS, Value.c_str());
-				free(&Value);
-			} catch (const std::exception& e) {
-				Log_Print("JsonGetString, error (%s)", e.what());
-			} catch (...) {}
-
+		if (!ExtractArgs(PASS_EXTRACT_ARGS, &Filename, &Key, &DefaultReturn)) {
+			return true;
 		}
 
-		free(&Filename); free(&Key); free(&DefaultReturn);
+		*result = Punchinello::JSON::GetValue(Filename, Key, DefaultReturn);
+
+		return true;
+	}
+
+	static bool Cmd_Punchinello_JsonGetFloat_Execute(COMMAND_ARGS) {
+
+		*result = 0;
+		char Filename[512], Key[512];
+		float DefaultReturn;
+
+		if (!ExtractArgs(PASS_EXTRACT_ARGS, &Filename, &Key, &DefaultReturn)) {
+			return true;
+		}
+
+		*result = Punchinello::JSON::GetValue(Filename, Key, DefaultReturn);
 
 		return true;
 	}
@@ -55,20 +52,52 @@ namespace Punchinello::ScriptCommands {
 	ParamInfo kParams_JsonGetString[3] = {
 		{ "Filename", kParamType_String, 0 },
 		{ "Key", kParamType_String, 0 },
-		{ "DefaultReturn", kParamType_String, 0 }
+		{ "Defaultreturn", kParamType_String, 0 }
+	};
+
+	ParamInfo kParams_JsonGetInt[3] = {
+		{ "Filename", kParamType_String, 0 },
+		{ "Key", kParamType_String, 0 },
+		{ "Defaultreturn", kParamType_Integer, 0 }
+	};
+
+	ParamInfo kParams_JsonGetFloat[3] = {
+		{ "Filename", kParamType_String, 0 },
+		{ "Key", kParamType_String, 0 },
+		{ "Defaultreturn", kParamType_Float, 0 }
 	};
 
 	CommandInfo kCommandInfo_JsonGetString = {
 		"JsonGetString",
 		"",
 		0,
-		"Fetch string value from JSON, returns DefaultReturn if unable to fetch value",
+		"Fetch string value from JSON, returns Defaultreturn if unable to fetch value",
 		0,
 		3,
 		kParams_JsonGetString,
 		Cmd_Punchinello_JsonGetString_Execute
 	};
 
-	
+	CommandInfo kCommandInfo_JsonGetInt = {
+		"JsonGetInt",
+		"",
+		0,
+		"Fetch int value from JSON, returns Defaultreturn if unable to fetch value",
+		0,
+		3,
+		kParams_JsonGetInt,
+		Cmd_Punchinello_JsonGetInt_Execute
+	};
+
+	CommandInfo kCommandInfo_JsonGetFloat = {
+		"JsonGetFloat",
+		"",
+		0,
+		"Fetch float value from JSON, returns Defaultreturn if unable to fetch value",
+		0,
+		3,
+		kParams_JsonGetFloat,
+		Cmd_Punchinello_JsonGetFloat_Execute
+	};
 
 }
