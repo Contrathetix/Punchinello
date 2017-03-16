@@ -106,8 +106,7 @@
       </Command>
     </PostBuildEvent>
     <ProjectReference>
-      <LinkLibraryDependencies>
-      </LinkLibraryDependencies>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
     <ProjectReference>
       <UseLibraryDependencyInputs>
@@ -166,8 +165,7 @@
       <TurnOffAssemblyGeneration>true</TurnOffAssemblyGeneration>
     </Link>
     <ProjectReference>
-      <LinkLibraryDependencies>
-      </LinkLibraryDependencies>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
       <UseLibraryDependencyInputs>
       </UseLibraryDependencyInputs>
     </ProjectReference>

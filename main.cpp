@@ -59,8 +59,11 @@ extern "C" {
 
 		obse->SetOpcodeBase(0x2000);
 		obse->RegisterTypedCommand(&Punchinello::ScriptCommands::kCommandInfo_JsonGetString, kRetnType_String);
+		obse->RegisterCommand(&Punchinello::ScriptCommands::kCommandInfo_JsonSetString);
 		obse->RegisterCommand(&Punchinello::ScriptCommands::kCommandInfo_JsonGetFloat);
+		obse->RegisterCommand(&Punchinello::ScriptCommands::kCommandInfo_JsonSetFloat);
 		obse->RegisterCommand(&Punchinello::ScriptCommands::kCommandInfo_JsonGetInt);
+		obse->RegisterCommand(&Punchinello::ScriptCommands::kCommandInfo_JsonSetInt);
 
 		Log_Print("Load, finished loading");
 

@@ -1,3 +1,5 @@
+#pragma once
+
 #include <exception>
 #include <fstream>
 #include "json.hpp"
@@ -5,12 +7,13 @@
 namespace Punchinello::JSON {
 
 	template <typename T>
-	bool SetValue(const std::string Filename, const std::string Key, T Value) {
+	void SetValue(const char* Filename, const char* Key, T Value) {
 
-		nlohmann::json Data;
+		static nlohmann::json Data;
+		static const std::string Filepath = Punchinello::Interfaces::JsonFilePath(Filename);
 
 		try {
-			std::ifstream File(Filename);
+			std::ifstream File(Filepath);
 			File >> Data;
 			File.close();
 		} catch (...) {}
@@ -18,7 +21,7 @@ namespace Punchinello::JSON {
 		Data[Key] = Value;
 
 		try {
-			std::ofstream file(Filename);
+			std::ofstream file(Filepath);
 			file << std::setw(4) << Data << std::endl;
 			file.close();
 		} catch (...) {}
@@ -28,16 +31,8 @@ namespace Punchinello::JSON {
 	template <typename T>
 	T GetValue(char* Filename, char* Key, T DefaultReturnValue) {
 
-		nlohmann::json Data;
-		std::string Filepath(Filename);
-
-		if (Filepath.find("..") != std::string::npos) {
-			Log_Print("invalid path %s", Filepath);
-			return DefaultReturnValue;
-		} else {
-			Filepath = Punchinello::Interfaces::kOblivionDirectory + Filepath;
-			Log_Print("final path %s", Filepath);
-		}
+		static nlohmann::json Data;
+		static std::string Filepath = Punchinello::Interfaces::JsonFilePath(Filename);
 
 		try {
 			std::ifstream File(Filepath);
