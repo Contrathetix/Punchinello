@@ -1,11 +1,15 @@
 #include "ScriptCommands.hpp"
 
+namespace Punchinello::Private {
+
+}
+
 namespace Punchinello::ScriptCommands {
 
 	static bool Cmd_Punchinello_JsonGetString_Execute(COMMAND_ARGS) {
 
 		*result = 0;
-		char Filename[512], Key[512], DefaultReturn[512];
+		char Filename[ARG_MAX_CHARS], Key[ARG_MAX_CHARS], DefaultReturn[ARG_MAX_CHARS];
 
 		if (!ExtractArgs(PASS_EXTRACT_ARGS, &Filename, &Key, &DefaultReturn)) {
 			return true;
@@ -22,7 +26,7 @@ namespace Punchinello::ScriptCommands {
 	static bool Cmd_Punchinello_JsonSetString_Execute(COMMAND_ARGS) {
 
 		*result = 0;
-		char Filename[512], Key[512], Value[512];
+		char Filename[ARG_MAX_CHARS], Key[ARG_MAX_CHARS], Value[ARG_MAX_CHARS];
 
 		if (!ExtractArgs(PASS_EXTRACT_ARGS, &Filename, &Key, &Value)) {
 			return true;
@@ -93,6 +97,36 @@ namespace Punchinello::ScriptCommands {
 		return true;
 	}
 
+	static bool Cmd_Punchinello_JsonGetList_Execute(COMMAND_ARGS) {
+		/*
+		*result = 0;
+		char Filename[512], Key[512];
+		float DefaultReturn;
+
+		if (!ExtractArgs(PASS_EXTRACT_ARGS, &Filename, &Key, &DefaultReturn)) {
+			return true;
+		}
+
+		*result = Punchinello::JSON::GetValue(Filename, Key, DefaultReturn);
+		*/
+		return true;
+	}
+
+	static bool Cmd_Punchinello_JsonSetList_Execute(COMMAND_ARGS) {
+		/*
+		*result = 0;
+		char Filename[512], Key[512];
+		float Value;
+
+		if (!ExtractArgs(PASS_EXTRACT_ARGS, &Filename, &Key, &Value)) {
+			return true;
+		}
+
+		Punchinello::JSON::SetValue(Filename, Key, Value);
+		*/
+		return true;
+	}
+
 	ParamInfo kParams_JsonGetString[3] = {
 		{ "Filename", kParamType_String, 0 },
 		{ "Key", kParamType_String, 0 },
@@ -127,6 +161,18 @@ namespace Punchinello::ScriptCommands {
 		{ "Filename", kParamType_String, 0 },
 		{ "Key", kParamType_String, 0 },
 		{ "Value", kParamType_Float, 0 }
+	};
+
+	ParamInfo kParams_JsonGetList[3] = {
+		{ "Filename", kParamType_String, 0 },
+		{ "Key", kParamType_String, 0 },
+		{ "Defaultreturn", kParamType_Array, 0 }
+	};
+
+	ParamInfo kParams_JsonSetList[3] = {
+		{ "Filename", kParamType_String, 0 },
+		{ "Key", kParamType_String, 0 },
+		{ "Value", kParamType_Array, 0 }
 	};
 
 	CommandInfo kCommandInfo_JsonGetString = {
@@ -193,6 +239,28 @@ namespace Punchinello::ScriptCommands {
 		3,
 		kParams_JsonSetFloat,
 		Cmd_Punchinello_JsonSetFloat_Execute
+	};
+
+	CommandInfo kCommandInfo_JsonGetList = {
+		"JsonGetList",
+		"",
+		0,
+		"Fetch list value from JSON, returns Defaultreturn if unable to fetch value",
+		0,
+		3,
+		kParams_JsonGetList,
+		Cmd_Punchinello_JsonGetList_Execute
+	};
+
+	CommandInfo kCommandInfo_JsonSetList = {
+		"JsonSetList",
+		"",
+		0,
+		"Write list value to JSON",
+		0,
+		3,
+		kParams_JsonSetList,
+		Cmd_Punchinello_JsonSetList_Execute
 	};
 
 }

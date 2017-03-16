@@ -12,6 +12,8 @@
 #include <fstream>
 #include "JsonProxy.hpp"
 
+#define ARG_MAX_CHARS 512
+
 namespace Punchinello::ScriptCommands {
 
 	extern CommandInfo kCommandInfo_JsonGetString;
@@ -22,5 +24,8 @@ namespace Punchinello::ScriptCommands {
 
 	extern CommandInfo kCommandInfo_JsonGetInt;
 	extern CommandInfo kCommandInfo_JsonSetInt;
+
+	extern CommandInfo kCommandInfo_JsonGetList;
+	extern CommandInfo kCommandInfo_JsonSetList;
 
 }

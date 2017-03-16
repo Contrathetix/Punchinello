@@ -10,7 +10,7 @@
 
 extern "C" {
 
-	bool OBSEPlugin_Query(const OBSEInterface* obse, PluginInfo* info) {
+	bool OBSEPlugin_Query(const OBSEInterface *obse, PluginInfo *info) {
 
 		Log_Print("Query, running...");
 
@@ -34,9 +34,15 @@ extern "C" {
 			return false;
 		}
 
-		Punchinello::Interfaces::kOBSEStringVar = (OBSEStringVarInterface*)obse->QueryInterface(kInterface_StringVar);
+		Punchinello::Interfaces::kOBSEStringVar = (OBSEStringVarInterface *)obse->QueryInterface(kInterface_StringVar);
 		if (Punchinello::Interfaces::kOBSEStringVar == NULL) {
-			Log_Print("Query, failed to acquire ScriptInterface");
+			Log_Print("Query, failed to acquire StringVarInterface");
+			return false;
+		}
+
+		Punchinello::Interfaces::kOBSEArrayVar = (OBSEArrayVarInterface *)obse->QueryInterface(kInterface_ArrayVar);
+		if (Punchinello::Interfaces::kOBSEArrayVar == NULL) {
+			Log_Print("Query, failed to acquire ArrayVarInterface");
 			return false;
 		}
 
@@ -46,7 +52,7 @@ extern "C" {
 
 	}
 
-	bool OBSEPlugin_Load(const OBSEInterface* obse) {
+	bool OBSEPlugin_Load(const OBSEInterface *obse) {
 
 		Log_Print("Load, running...");
 
@@ -58,12 +64,18 @@ extern "C" {
 		}
 
 		obse->SetOpcodeBase(0x2000);
+
 		obse->RegisterTypedCommand(&Punchinello::ScriptCommands::kCommandInfo_JsonGetString, kRetnType_String);
 		obse->RegisterCommand(&Punchinello::ScriptCommands::kCommandInfo_JsonSetString);
+
 		obse->RegisterCommand(&Punchinello::ScriptCommands::kCommandInfo_JsonGetFloat);
 		obse->RegisterCommand(&Punchinello::ScriptCommands::kCommandInfo_JsonSetFloat);
+
 		obse->RegisterCommand(&Punchinello::ScriptCommands::kCommandInfo_JsonGetInt);
 		obse->RegisterCommand(&Punchinello::ScriptCommands::kCommandInfo_JsonSetInt);
+
+		obse->RegisterTypedCommand(&Punchinello::ScriptCommands::kCommandInfo_JsonGetList, kRetnType_Array);
+		obse->RegisterCommand(&Punchinello::ScriptCommands::kCommandInfo_JsonSetList);
 
 		Log_Print("Load, finished loading");
 

@@ -6,10 +6,16 @@
 
 namespace Punchinello::Interfaces {
 
-	extern PluginHandle kPluginHandle;
-	extern OBSEStringVarInterface* kOBSEStringVar;
-	extern const char* kOblivionDirectory;
+	typedef OBSEArrayVarInterface::Array OBSEArray;
+	typedef OBSEArrayVarInterface::Element OBSEElement;
 
-	std::string JsonFilePath(const char* Filename);
+	extern PluginHandle kPluginHandle;
+	extern OBSEStringVarInterface *kOBSEStringVar;
+	extern OBSEArrayVarInterface *kOBSEArrayVar;
+	extern const char *kOblivionDirectory;
+
+	OBSEArray *StringMapFromStdMap(const std::map<std::string, OBSEElement> &, Script *);
+	OBSEArray *MapFromStdMap(const std::map<double, OBSEElement> &, Script *);
+	OBSEArray *ArrayFromStdVector(const std::vector<OBSEElement> &, Script *);
 
 }
