@@ -45,6 +45,12 @@
     <ClCompile Include="..\obse\obse\Script.cpp">
       <Filter>OBSE</Filter>
     </ClCompile>
+    <ClCompile Include="..\obse\obse\GameForms.cpp">
+      <Filter>OBSE</Filter>
+    </ClCompile>
+    <ClCompile Include="JsonProxy.cpp">
+      <Filter>Punchinello</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <None Include="exports.def" />
@@ -101,13 +107,13 @@
     <ClInclude Include="..\obse\obse\NiNodes.h">
       <Filter>OBSE</Filter>
     </ClInclude>
-    <ClInclude Include="..\obse\obse\ParamInfos.h">
-      <Filter>OBSE</Filter>
-    </ClInclude>
     <ClInclude Include="..\obse\obse\PluginAPI.h">
       <Filter>OBSE</Filter>
     </ClInclude>
     <ClInclude Include="..\obse\obse\Script.h">
+      <Filter>OBSE</Filter>
+    </ClInclude>
+    <ClInclude Include="..\obse\obse\GameForms.h">
       <Filter>OBSE</Filter>
     </ClInclude>
   </ItemGroup>

@@ -1,10 +1,18 @@
 #pragma once
 
-//#include <exception>
+// json includes
 #include <fstream>
+#include <exception>
+
+// project includes
+#include "Interfaces.hpp"
+#include "Logging.hpp"
 #include "json.hpp"
 
-namespace Punchinello::Private {
+namespace Punchinello::JSONUtils {
+
+	nlohmann::json EraseObjectKey(nlohmann::json, char *);
+	std::string JsonFilePath(char *);
 
 	template <typename T>
 	nlohmann::json SetObjectValue(nlohmann::json Object, char *Path, T Value) {
@@ -16,6 +24,8 @@ namespace Punchinello::Private {
 			} else {
 				Object[Path] = Value;
 			}
+		} catch (std::exception& e) {
+			Log_Print("SetObjectValue, Exception (%s), Key (%s)", e.what(), Path);
 		} catch (...) {}
 		return Object;
 	}
@@ -30,55 +40,46 @@ namespace Punchinello::Private {
 			} else if (Object != NULL && Object[Path] != NULL) {
 				return Object[Path];
 			}
+		} catch (std::exception& e) {
+			Log_Print("GetObjectValue, Exception (%s), Key (%s)", e.what(), Path);
 		} catch (...) {}
 		return DefaultReturnValue;
-	}
-
-	std::string JsonFilePath(const char *Filename) {
-
-		static std::string Filepath(Filename);
-
-		if (Filepath.find("..") != std::string::npos) {
-			Log_Print("invalid path %s", Filepath);
-			return NULL;
-		}
-		else {
-			return Punchinello::Interfaces::kOblivionDirectory + Filepath;
-			Log_Print("final path %s", Filepath);
-		}
-
 	}
 
 }
 
 namespace Punchinello::JSON {
 
+	void EraseKey(char *Filename, char *Path);
+
 	template <typename T>
 	void SetValue(char *Filename, char *Path, T Value) {
 		static nlohmann::json Data;
-		static const std::string Filepath = Punchinello::Private::JsonFilePath(Filename);
+		static const std::string Filepath = Punchinello::JSONUtils::JsonFilePath(Filename);
 		try {
-			std::ifstream File(Filepath);
-			File >> Data;
-			File.close();
-		} catch (...) {}
-		Data = Punchinello::Private::SetObjectValue(Data, Path, Value);
-		try {
-			std::ofstream File(Filepath);
-			File << std::setw(4) << Data << std::endl;
-			File.close();
+			std::ifstream InFile(Filepath);
+			InFile >> Data;
+			InFile.close();
+			Data = Punchinello::JSONUtils::SetObjectValue(Data, Path, Value);
+			std::ofstream OutFile(Filepath);
+			OutFile << std::setw(4) << Data << std::endl;
+			OutFile.close();
+		} catch (std::exception& e) {
+			Log_Print("SetValue, Exception (%s), Filepath (%s), Key (%s)", e.what(), Filepath, Path);
 		} catch (...) {}
 	}
 
 	template <typename T>
 	T GetValue(char *Filename, char *Path, T DefaultReturnValue) {
 		static nlohmann::json Data;
-		static std::string Filepath = Punchinello::Private::JsonFilePath(Filename);
+		static std::string Filepath = Punchinello::JSONUtils::JsonFilePath(Filename);
 		try {
 			std::ifstream File(Filepath);
 			File >> Data;
 			File.close();
-			return Punchinello::Private::GetObjectValue(Data, Path, DefaultReturnValue);
+			return Punchinello::JSONUtils::GetObjectValue(Data, Path, DefaultReturnValue);
+		} catch (std::exception& e) {
+			Log_Print("GetValue, Exception (%s), Filepath (%s), Key (%s)", e.what(), Filepath, Path);
 		} catch (...) {}
 		return DefaultReturnValue;
 	}

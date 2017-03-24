@@ -12,41 +12,43 @@ extern "C" {
 
 	bool OBSEPlugin_Query(const OBSEInterface *obse, PluginInfo *info) {
 
-		Log_Print("Query, running...");
+		Log_Print("OBSEPlugin, Query (start)");
 
-		// fill out the info structure
 		info->infoVersion = PluginInfo::kInfoVersion;
 		info->name = "Punchinello";
 		info->version = 1;
 
 		if (obse->isEditor) {
-			Log_Print("Query, isEditor, skipping version checks");
+			Log_Print("OBSEPlugin, Query (editor, skipping version checks)");
 			return true;
 		}
 
 		if (obse->obseVersion < OBSE_VERSION_INTEGER) {
-			Log_Print("Query, OBSE version too old (got %08X expected at least %08X)", obse->obseVersion, OBSE_VERSION_INTEGER);
+			Log_Print("OBSEPlugin, Query (OBSE version too old, got %08X, expected >= %08X)", obse->obseVersion, OBSE_VERSION_INTEGER);
 			return false;
 		}
 
 		if (obse->oblivionVersion != OBLIVION_VERSION) {
-			Log_Print("Query, incorrect Oblivion version (got %08X need %08X)", obse->oblivionVersion, OBLIVION_VERSION);
+			Log_Print("OBSEPlugin, Query (incorrect Oblivion version, got %08X, need %08X)", obse->oblivionVersion, OBLIVION_VERSION);
 			return false;
 		}
 
-		Punchinello::Interfaces::kOBSEStringVar = (OBSEStringVarInterface *)obse->QueryInterface(kInterface_StringVar);
-		if (Punchinello::Interfaces::kOBSEStringVar == NULL) {
-			Log_Print("Query, failed to acquire StringVarInterface");
+		if ((Punchinello::Interfaces::kOBSEScript = (OBSEScriptInterface*)obse->QueryInterface(kInterface_Script)) == NULL) {
+			Log_Print("OBSEPlugin, Query (failed to acquire ScriptInterface)");
+			return false; 
+		}
+
+		if ((Punchinello::Interfaces::kOBSEStringVar = (OBSEStringVarInterface *)obse->QueryInterface(kInterface_StringVar)) == NULL) {
+			Log_Print("OBSEPlugin, Query (failed to acquire StringVarInterface)");
 			return false;
 		}
 
-		Punchinello::Interfaces::kOBSEArrayVar = (OBSEArrayVarInterface *)obse->QueryInterface(kInterface_ArrayVar);
-		if (Punchinello::Interfaces::kOBSEArrayVar == NULL) {
-			Log_Print("Query, failed to acquire ArrayVarInterface");
+		if ((Punchinello::Interfaces::kOBSEArrayVar = (OBSEArrayVarInterface *)obse->QueryInterface(kInterface_ArrayVar)) == NULL) {
+			Log_Print("OBSEPlugin, Query (failed to acquire ArrayVarInterface)");
 			return false;
 		}
 
-		Log_Print("Query, version checks passed");
+		Log_Print("OBSEPlugin, Query (passed)");
 
 		return true; // version checks passed
 
@@ -54,13 +56,13 @@ extern "C" {
 
 	bool OBSEPlugin_Load(const OBSEInterface *obse) {
 
-		Log_Print("Load, running...");
+		Log_Print("OBSEPlugin, Load (start)");
 
 		Punchinello::Interfaces::kPluginHandle = obse->GetPluginHandle();
 
 		if (obse->isEditor == false) {
 			Punchinello::Interfaces::kOblivionDirectory = obse->GetOblivionDirectory();
-			Log_Print("Load, oblivion directory (%s)", Punchinello::Interfaces::kOblivionDirectory);
+			Log_Print("OBSEPlugin, Load (obliviondir %s)", Punchinello::Interfaces::kOblivionDirectory);
 		}
 
 		obse->SetOpcodeBase(0x2000);
@@ -74,10 +76,12 @@ extern "C" {
 		obse->RegisterCommand(&Punchinello::ScriptCommands::kCommandInfo_JsonGetInt);
 		obse->RegisterCommand(&Punchinello::ScriptCommands::kCommandInfo_JsonSetInt);
 
-		obse->RegisterTypedCommand(&Punchinello::ScriptCommands::kCommandInfo_JsonGetList, kRetnType_Array);
-		obse->RegisterCommand(&Punchinello::ScriptCommands::kCommandInfo_JsonSetList);
+		obse->RegisterTypedCommand(&Punchinello::ScriptCommands::kCommandInfo_JsonGetForm, kRetnType_Form);
+		obse->RegisterCommand(&Punchinello::ScriptCommands::kCommandInfo_JsonSetForm);
 
-		Log_Print("Load, finished loading");
+		obse->RegisterCommand(&Punchinello::ScriptCommands::kCommandInfo_JsonEraseKey);
+
+		Log_Print("OBSEPlugin, Load (finished)");
 
 		return true;
 	}

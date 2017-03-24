@@ -183,6 +183,7 @@
     <ClCompile Include="..\obse\obse\GameBSExtraData.cpp" />
     <ClCompile Include="..\obse\obse\GameData.cpp" />
     <ClCompile Include="..\obse\obse\GameExtraData.cpp" />
+    <ClCompile Include="..\obse\obse\GameForms.cpp" />
     <ClCompile Include="..\obse\obse\GameObjects.cpp" />
     <ClCompile Include="..\obse\obse\GameTasks.cpp" />
     <ClCompile Include="..\obse\obse\GameTypes.cpp" />
@@ -190,6 +191,7 @@
     <ClCompile Include="..\obse\obse\NiNodes.cpp" />
     <ClCompile Include="..\obse\obse\Script.cpp" />
     <ClCompile Include="Interfaces.cpp" />
+    <ClCompile Include="JsonProxy.cpp" />
     <ClCompile Include="Logging.cpp" />
     <ClCompile Include="ScriptCommands.cpp" />
     <ClCompile Include="dllmain.c">
@@ -210,13 +212,13 @@
     <ClInclude Include="..\obse\obse\GameBSExtraData.h" />
     <ClInclude Include="..\obse\obse\GameData.h" />
     <ClInclude Include="..\obse\obse\GameExtraData.h" />
+    <ClInclude Include="..\obse\obse\GameForms.h" />
     <ClInclude Include="..\obse\obse\GameObjects.h" />
     <ClInclude Include="..\obse\obse\GameRTTI.h" />
     <ClInclude Include="..\obse\obse\GameTasks.h" />
     <ClInclude Include="..\obse\obse\GameTypes.h" />
     <ClInclude Include="..\obse\obse\NiAPI.h" />
     <ClInclude Include="..\obse\obse\NiNodes.h" />
-    <ClInclude Include="..\obse\obse\ParamInfos.h" />
     <ClInclude Include="..\obse\obse\PluginAPI.h" />
     <ClInclude Include="..\obse\obse\Script.h" />
     <ClInclude Include="Interfaces.hpp" />
