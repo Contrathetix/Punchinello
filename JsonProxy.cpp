@@ -3,29 +3,38 @@
 namespace Punchinello::JSONUtils {
 
 	nlohmann::json EraseObjectKey(nlohmann::json Object, char *Path) {
-		char *CharP;
+
+		char *Separator;
+
 		try {
-			if ((CharP = strchr(Path, '.')) != NULL) {
-				*CharP = '\0';
-				Object[Path] = EraseObjectKey(Object[Path], CharP + 1);
+			if ((Separator = strchr(Path, '.')) != NULL) {
+				*Separator = '\0';
+				Object[Path] = EraseObjectKey(Object[Path], Separator + 1);
 			} else {
 				Object.erase(Path);
 			}
 		} catch (std::exception& e) {
-			Log_Print("EraseKey, Exception (%s), Key (%s)", e.what(), Path);
+			Log_Print("EraseObjectKey, Exception (%s), Key (%s)", e.what(), Path);
 		} catch (...) {}
+
 		return Object;
 	}
 
 	std::string JsonFilePath(char *Filename) {
-		static std::string Filepath(Filename);
-		static const std::string InvalidChars = "/*:?\"<>;|"; // borrowed from ConScribe by shademe
-		if (Filepath.find_first_of(InvalidChars) != std::string::npos || Filepath.find("..") != std::string::npos) {
+
+		std::string Filepath(Filename);
+		static const std::string InvalidChars("/*:?\"<>;|"); // borrowed from ConScribe by shademe
+
+		if (Filepath.length() < 5) {
+			return std::string("");
+		}
+
+		if ((Filepath.find("..") != std::string::npos) || (Filepath.find_first_of(InvalidChars) != std::string::npos)) {
 			Log_Print("JsonFilePath, InvalidPathString (%s)", Filepath);
 			return std::string("");
-		} else {
-			return Punchinello::Interfaces::kOblivionDirectory + Filepath;
 		}
+
+		return std::string(Punchinello::Interfaces::kOblivionDirectory) + Filepath;
 	}
 
 }
@@ -33,8 +42,10 @@ namespace Punchinello::JSONUtils {
 namespace Punchinello::JSON {
 
 	void EraseKey(char *Filename, char *Path) {
-		static nlohmann::json Data;
-		static const std::string Filepath = Punchinello::JSONUtils::JsonFilePath(Filename);
+
+		nlohmann::json Data;
+		const std::string Filepath = Punchinello::JSONUtils::JsonFilePath(Filename);
+
 		try {
 			std::ifstream InFile(Filepath);
 			InFile >> Data;
@@ -46,6 +57,7 @@ namespace Punchinello::JSON {
 		} catch (std::exception& e) {
 			Log_Print("EraseKey, Exception (%s), Filepath (%s), Key (%s)", e.what(), Filepath, Path);
 		} catch (...) {}
+
 	}
 
 }

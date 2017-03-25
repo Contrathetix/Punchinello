@@ -60,12 +60,12 @@ extern "C" {
 
 		Punchinello::Interfaces::kPluginHandle = obse->GetPluginHandle();
 
-		if (obse->isEditor == false) {
+		if (!obse->isEditor) {
 			Punchinello::Interfaces::kOblivionDirectory = obse->GetOblivionDirectory();
 			Log_Print("OBSEPlugin, Load (obliviondir %s)", Punchinello::Interfaces::kOblivionDirectory);
 		}
 
-		obse->SetOpcodeBase(0x2000);
+		obse->SetOpcodeBase(0x2890); // the plugin was assigned 0x2890 - 289F
 
 		obse->RegisterTypedCommand(&Punchinello::ScriptCommands::kCommandInfo_JsonGetString, kRetnType_String);
 		obse->RegisterCommand(&Punchinello::ScriptCommands::kCommandInfo_JsonSetString);

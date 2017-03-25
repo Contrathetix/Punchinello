@@ -5,32 +5,33 @@
 #define MOD_NAME_LENGTH 0x100
 #define REF_ID_LENGTH 0x20
 
+// convenience definitions for ExtractArgsEx
+#define ExtractArgsEx(...) Punchinello::Interfaces::kOBSEScript->ExtractArgsEx(__VA_ARGS__)
+#define PASS_EXTRACT_ARGS_EX paramInfo, arg1, opcodeOffsetPtr, scriptObj, eventList
+
 namespace Punchinello::FormConverter {
 
 	// adapted from GetFormFromMod in Commands_Script.cpp from OBSE
-	static UInt32 StringToForm(char *InputString, UInt32 DefaultReturnValue) {
+	void StringToRefID(std::string StringValue, UInt32 *ReturnValue) {
 
-		char RefIDString[REF_ID_LENGTH] = { 0 };
-		char ModName[MOD_NAME_LENGTH] = { 0 };
-		char *TempChar;
+		char ModName[MOD_NAME_LENGTH], RefIDString[REF_ID_LENGTH];
+		size_t Separator = StringValue.find(':');
 		TESForm *Form;
-		UInt32 RefID;
-		UInt32 *RefResult = 0;
 		UInt8 ModIndex = 0xFF;
+		UInt32 RefID;
 
-		if ((TempChar = strchr(InputString, ':')) == NULL) {
-			return DefaultReturnValue;
-		} else {
-			*TempChar = '\0';
-			strcpy(RefIDString, InputString);
-			strcpy(ModName, TempChar + 1);
+		if (Separator == std::string::npos) {
+			Log_Print("StringToRefID, InvalidString (%s)", StringValue.c_str());
+			return;
 		}
 
+		strcpy(RefIDString, StringValue.substr(0, Separator).c_str());
+		strcpy(ModName, StringValue.substr(Separator + 1).c_str());
 
 		if (_stricmp(ModName, "NONE") != 0) { // "NONE" for dynamic refs
 			ModIndex = ModTable::Get().GetModIndex(ModName);
-			if (ModIndex == 0xFF) {	// mod not loaded (255?)
-				return DefaultReturnValue;
+			if (ModIndex == 0xFF) {
+				return; // mod is not loaded (255?)
 			}
 		}
 
@@ -38,19 +39,19 @@ namespace Punchinello::FormConverter {
 			RefID &= 0x00FFFFFF;
 			RefID |= (ModIndex << 24);
 			if ((Form = LookupFormByID(RefID)) != NULL) {
-				return RefID;
+				*ReturnValue = (UInt32)RefID;
 			}
 		}
 
-		return DefaultReturnValue;
+		return;
 	}
-
+	
 	// adapted from GetFormIDString in Commands_Script.cpp from OBSE
 	std::string FormToString(TESForm *Form) {
 
 		char FormIDString[REF_ID_LENGTH] = { 0 };
-		const char* ModName = NULL;
-		std::string FormString = "";
+		const char *ModName = NULL;
+		std::string FormString("");
 
 		if (Form) {
 			ModName = (*g_dataHandler)->GetNthModName(Form->GetModIndex());
@@ -152,17 +153,16 @@ namespace Punchinello::ScriptCommands {
 	static bool Cmd_Punchinello_JsonGetForm_Execute(COMMAND_ARGS) {
 
 		char Filename[ARG_MAX_CHARS], Key[ARG_MAX_CHARS];
-		char FormString[REF_ID_LENGTH + 1 + MOD_NAME_LENGTH];
-		std::string FormStdString;
+		std::string TempStr("");
 		TESForm *DefaultReturn;
 		UInt32 *RefResult = (UInt32 *)result;
 
-		if (!Punchinello::Interfaces::kOBSEScript->ExtractArgsEx(paramInfo, arg1, opcodeOffsetPtr, scriptObj, eventList, &Filename, &Key, &DefaultReturn)) {
-			*RefResult = 0;
+		if (ExtractArgsEx(PASS_EXTRACT_ARGS_EX, &Filename, &Key, &DefaultReturn)) {
+			*RefResult = DefaultReturn->refID;
+			TempStr = Punchinello::JSON::GetValue(Filename, Key, TempStr);
+			Punchinello::FormConverter::StringToRefID(TempStr, RefResult);
 		} else {
-			FormStdString = Punchinello::JSON::GetValue(Filename, Key, FormStdString);
-			strcpy(FormString, FormStdString.c_str());
-			*RefResult = Punchinello::FormConverter::StringToForm(FormString, DefaultReturn->refID);
+			*RefResult = 0;
 		}
 
 		return true;
@@ -171,11 +171,13 @@ namespace Punchinello::ScriptCommands {
 	static bool Cmd_Punchinello_JsonSetForm_Execute(COMMAND_ARGS) {
 
 		char Filename[ARG_MAX_CHARS], Key[ARG_MAX_CHARS];
+		std::string StringValue;
 		TESForm *Value;
 		*result = 0;
 
-		if (Punchinello::Interfaces::kOBSEScript->ExtractArgsEx(paramInfo, arg1, opcodeOffsetPtr, scriptObj, eventList, &Filename, &Key, &Value)) {
-			Punchinello::JSON::SetValue(Filename, Key, Punchinello::FormConverter::FormToString(Value));
+		if (ExtractArgsEx(PASS_EXTRACT_ARGS_EX, &Filename, &Key, &Value)) {
+			StringValue = Punchinello::FormConverter::FormToString(Value);
+			Punchinello::JSON::SetValue(Filename, Key, StringValue);
 		}
 
 		return true;
@@ -250,7 +252,7 @@ namespace Punchinello::ScriptCommands {
 		"JsonGetString",
 		"",
 		0,
-		"Fetch string value from JSON, returns Defaultreturn if unable to fetch value",
+		"Read string value from JSON",
 		0,
 		3,
 		kParams_JsonGetString,
@@ -272,7 +274,7 @@ namespace Punchinello::ScriptCommands {
 		"JsonGetInt",
 		"",
 		0,
-		"Fetch int value from JSON, returns Defaultreturn if unable to fetch value",
+		"Read integer value from JSON",
 		0,
 		3,
 		kParams_JsonGetInt,
@@ -283,7 +285,7 @@ namespace Punchinello::ScriptCommands {
 		"JsonSetInt",
 		"",
 		0,
-		"Write int value to JSON",
+		"Write integer value to JSON",
 		0,
 		3,
 		kParams_JsonSetInt,
@@ -294,7 +296,7 @@ namespace Punchinello::ScriptCommands {
 		"JsonGetFloat",
 		"",
 		0,
-		"Fetch float value from JSON, returns Defaultreturn if unable to fetch value",
+		"Read floating point value from JSON",
 		0,
 		3,
 		kParams_JsonGetFloat,
@@ -305,7 +307,7 @@ namespace Punchinello::ScriptCommands {
 		"JsonSetFloat",
 		"",
 		0,
-		"Write float value to JSON",
+		"Write floating point value to JSON",
 		0,
 		3,
 		kParams_JsonSetFloat,
@@ -316,7 +318,7 @@ namespace Punchinello::ScriptCommands {
 		"JsonGetForm",
 		"",
 		0,
-		"Fetch form value from JSON, returns Defaultreturn if unable to fetch value",
+		"Read form value from JSON",
 		0,
 		3,
 		kParams_JsonGetForm,
