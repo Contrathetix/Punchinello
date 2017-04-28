@@ -6,12 +6,6 @@
     <ClCompile Include="ScriptCommands.cpp">
       <Filter>Punchinello</Filter>
     </ClCompile>
-    <ClCompile Include="Logging.cpp">
-      <Filter>Punchinello</Filter>
-    </ClCompile>
-    <ClCompile Include="Interfaces.cpp">
-      <Filter>Punchinello</Filter>
-    </ClCompile>
     <ClCompile Include="..\obse\obse\GameActorValues.cpp">
       <Filter>OBSE</Filter>
     </ClCompile>
@@ -48,7 +42,16 @@
     <ClCompile Include="..\obse\obse\GameForms.cpp">
       <Filter>OBSE</Filter>
     </ClCompile>
-    <ClCompile Include="JsonProxy.cpp">
+    <ClCompile Include="Interfaces.cpp">
+      <Filter>Punchinello</Filter>
+    </ClCompile>
+    <ClCompile Include="FormManager.cpp">
+      <Filter>Punchinello</Filter>
+    </ClCompile>
+    <ClCompile Include="MemoryCache.cpp">
+      <Filter>Punchinello</Filter>
+    </ClCompile>
+    <ClCompile Include="Logging.cpp">
       <Filter>Punchinello</Filter>
     </ClCompile>
   </ItemGroup>
@@ -61,9 +64,6 @@
   <ItemGroup>
     <ClInclude Include="json.hpp">
       <Filter>JSON</Filter>
-    </ClInclude>
-    <ClInclude Include="JsonProxy.hpp">
-      <Filter>Punchinello</Filter>
     </ClInclude>
     <ClInclude Include="ScriptCommands.hpp">
       <Filter>Punchinello</Filter>
@@ -115,6 +115,15 @@
     </ClInclude>
     <ClInclude Include="..\obse\obse\GameForms.h">
       <Filter>OBSE</Filter>
+    </ClInclude>
+    <ClInclude Include="FormManager.hpp">
+      <Filter>Punchinello</Filter>
+    </ClInclude>
+    <ClInclude Include="JsonManager.hpp">
+      <Filter>Punchinello</Filter>
+    </ClInclude>
+    <ClInclude Include="MemoryCache.hpp">
+      <Filter>Punchinello</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

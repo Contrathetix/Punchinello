@@ -6,5 +6,6 @@ lib
 obse
 common
 json.hpp
+*.obj
 *.exe
 *.json

@@ -2,16 +2,14 @@
 
 // obse includes
 #include "obse/GameForms.h"
-#include "obse/ModTable.h"
-#include "obse/ScriptUtils.h"
 #include "obse/PluginAPI.h"
 #include "obse/GameAPI.h"
-#include "obse/GameData.h"
 
 // project includes
 #include "Logging.hpp"
 #include "Interfaces.hpp"
-#include "JsonProxy.hpp"
+#include "JsonManager.hpp"
+#include "FormManager.hpp"
 
 namespace Punchinello::ScriptCommands {
 
@@ -28,5 +26,6 @@ namespace Punchinello::ScriptCommands {
 	extern CommandInfo kCommandInfo_JsonSetForm;
 
 	extern CommandInfo kCommandInfo_JsonEraseKey;
+	extern CommandInfo kCommandInfo_JsonListKeys;
 
 }

@@ -3,8 +3,9 @@
 // obse includes
 #include "obse/PluginAPI.h"
 
-// project includes
-#include "Logging.hpp"
+// definitions
+typedef OBSEArrayVarInterface::Array OBSEArray;
+typedef OBSEArrayVarInterface::Element OBSEElement;
 
 namespace Punchinello::Interfaces {
 
@@ -12,6 +13,8 @@ namespace Punchinello::Interfaces {
 	extern OBSEScriptInterface *kOBSEScript;
 	extern OBSEStringVarInterface *kOBSEStringVar;
 	extern OBSEArrayVarInterface *kOBSEArrayVar;
-	extern const char *kOblivionDirectory;
+	extern std::string kOblivionDirectory;
+
+	OBSEArray *ArrayFromStdVector(const std::vector<std::string> &, Script *);
 
 }

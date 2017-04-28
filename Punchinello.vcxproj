@@ -77,7 +77,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <PrecompiledHeaderFile>obse/stdafx.h</PrecompiledHeaderFile>
-      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <WholeProgramOptimization>true</WholeProgramOptimization>
       <OmitDefaultLibName>true</OmitDefaultLibName>
@@ -126,7 +126,7 @@
       <CompileAs>CompileAsCpp</CompileAs>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <Optimization>Full</Optimization>
-      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
       <UndefinePreprocessorDefinitions>
       </UndefinePreprocessorDefinitions>
@@ -176,6 +176,9 @@
       <CopyLocalSatelliteAssemblies>true</CopyLocalSatelliteAssemblies>
       <ReferenceOutputAssembly>true</ReferenceOutputAssembly>
     </ProjectReference>
+    <ProjectReference Include="..\obse\obse\obse.vcxproj">
+      <Project>{01b76b21-f851-436e-acea-64fa03be8c59}</Project>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\obse\obse\GameActorValues.cpp" />
@@ -190,9 +193,10 @@
     <ClCompile Include="..\obse\obse\NiAPI.cpp" />
     <ClCompile Include="..\obse\obse\NiNodes.cpp" />
     <ClCompile Include="..\obse\obse\Script.cpp" />
+    <ClCompile Include="FormManager.cpp" />
     <ClCompile Include="Interfaces.cpp" />
-    <ClCompile Include="JsonProxy.cpp" />
     <ClCompile Include="Logging.cpp" />
+    <ClCompile Include="MemoryCache.cpp" />
     <ClCompile Include="ScriptCommands.cpp" />
     <ClCompile Include="dllmain.c">
       <ForcedIncludeFiles Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -221,11 +225,13 @@
     <ClInclude Include="..\obse\obse\NiNodes.h" />
     <ClInclude Include="..\obse\obse\PluginAPI.h" />
     <ClInclude Include="..\obse\obse\Script.h" />
+    <ClInclude Include="MemoryCache.hpp" />
+    <ClInclude Include="FormManager.hpp" />
     <ClInclude Include="Interfaces.hpp" />
     <ClInclude Include="Logging.hpp" />
     <ClInclude Include="ScriptCommands.hpp" />
     <ClInclude Include="json.hpp" />
-    <ClInclude Include="JsonProxy.hpp" />
+    <ClInclude Include="JsonManager.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Library Include="lib\common.lib" />
