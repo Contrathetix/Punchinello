@@ -22,7 +22,8 @@ The following commands are available for writing to JSON files:
 
 The following miscellaneous commands are available:
 
-    (nothing) JsonEraseKey   filename:string_var  key:string_var
+    (nothing)        JsonEraseKey   filename:string_var  key:string_var
+    (keys:array_var) JsonListKeys   filename:string_var  key:string_var
 
 ### Compiling the Plugin
 For my own sake, I keep forgetting things. Folder structure:
@@ -37,4 +38,4 @@ From obse and common, the respective .lib files need to be copied to:
     ...\[project-folder]\Punchinello\lib\obse.lib
     ...\[project-folder]\Punchinello\lib\common.lib
 
-Compiled with Microsoft Visual Studio Community 2017, Windows SDK 10 and Windows 10. Optimising for small code size seems to annoy antivirus software, so I have not done that.
+Compiled with Microsoft Visual Studio Community 2017, Windows SDK 10 and Windows 10.
