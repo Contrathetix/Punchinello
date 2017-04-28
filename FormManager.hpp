@@ -16,4 +16,5 @@ namespace Punchinello::FormManager {
 
 	void StringToRefID(std::string, UInt32 *);
 	std::string FormToString(TESForm *);
+
 }

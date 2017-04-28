@@ -15,7 +15,7 @@ namespace Punchinello::JsonManager {
 
 	class JsonObject {
 
-	private:
+		private:
 
 		nlohmann::json Data;
 		std::string Filename;
