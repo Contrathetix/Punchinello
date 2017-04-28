@@ -4,13 +4,13 @@ namespace Punchinello::MemoryCache {
 
 	// memory cache to avoid excess disk I/O - for reading files only
 	static std::map<std::string, nlohmann::json> MemoryCache;
-	static std::map<std::string, nlohmann::json>::iterator it;
 
 	void Erase(std::string &Filename) {
 		MemoryCache.erase(Filename);
 	}
 
 	void Find(std::string &Filename, nlohmann::json &Data) {
+		std::map<std::string, nlohmann::json>::iterator it;
 		if ((it = MemoryCache.find(Filename)) != MemoryCache.end()) {
 			Data = it->second;
 		}

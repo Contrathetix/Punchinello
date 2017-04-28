@@ -123,7 +123,7 @@ namespace Punchinello::JsonManager {
 			}
 			try {
 				Punchinello::MemoryCache::Erase(Filename);
-				std::ofstream Filehandle(Filename);
+				std::ofstream Filehandle(Punchinello::Interfaces::kOblivionDirectory + Filename);
 				Filehandle << Data.dump(4) << std::endl;
 				Filehandle.close();
 			} catch (std::exception &e) {
