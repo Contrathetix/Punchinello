@@ -29,7 +29,7 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <PlatformToolset>v141</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
-    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <WholeProgramOptimization>false</WholeProgramOptimization>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -45,49 +45,63 @@
     <_ProjectFileVersion>12.0.30501.0</_ProjectFileVersion>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
-    <IntDir>$(Configuration)\</IntDir>
+    <OutDir>Debug\</OutDir>
+    <IntDir>Debug\</IntDir>
     <LinkIncremental>false</LinkIncremental>
     <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+    <IgnoreImportLibrary>true</IgnoreImportLibrary>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-    <OutDir>$(SolutionDir)$(Configuration)\</OutDir>
-    <IntDir>$(Configuration)\</IntDir>
+    <OutDir>Release\</OutDir>
+    <IntDir>Release\</IntDir>
     <LinkIncremental>false</LinkIncremental>
-    <IgnoreImportLibrary>false</IgnoreImportLibrary>
+    <IgnoreImportLibrary>true</IgnoreImportLibrary>
     <PostBuildEventUseInBuild>false</PostBuildEventUseInBuild>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <Optimization>Full</Optimization>
+      <Optimization>Disabled</Optimization>
       <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)..\;$(SolutionDir)..\common\;$(SolutionDir)..\obse\;$(SolutionDir)..\obse\obse;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;OBLIVION_VERSION=0x010201A0;OBLIVION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;OBLIVION_VERSION=0x010201A0;OBLIVION;_CRT_NO_VA_START_VALIDATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
-      <BasicRuntimeChecks>Default</BasicRuntimeChecks>
+      <BasicRuntimeChecks>
+      </BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
-      <DebugInformationFormat>None</DebugInformationFormat>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <ForcedIncludeFiles>stdafx.h;obse_common/obse_prefix.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <CompileAs>CompileAsCpp</CompileAs>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <CompileAsManaged>false</CompileAsManaged>
       <CompileAsWinRT>false</CompileAsWinRT>
-      <OmitFramePointers>true</OmitFramePointers>
-      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <OmitFramePointers>false</OmitFramePointers>
+      <FunctionLevelLinking>
+      </FunctionLevelLinking>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <PrecompiledHeaderFile>obse/stdafx.h</PrecompiledHeaderFile>
-      <FavorSizeOrSpeed>Size</FavorSizeOrSpeed>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <FavorSizeOrSpeed>Neither</FavorSizeOrSpeed>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
-      <WholeProgramOptimization>true</WholeProgramOptimization>
-      <OmitDefaultLibName>true</OmitDefaultLibName>
+      <WholeProgramOptimization>false</WholeProgramOptimization>
+      <OmitDefaultLibName>false</OmitDefaultLibName>
+      <EnableFiberSafeOptimizations>false</EnableFiberSafeOptimizations>
+      <StringPooling>true</StringPooling>
+      <DisableLanguageExtensions>
+      </DisableLanguageExtensions>
+      <InlineFunctionExpansion>Default</InlineFunctionExpansion>
+      <UndefinePreprocessorDefinitions>
+      </UndefinePreprocessorDefinitions>
+      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>
       <ModuleDefinitionFile>exports.def</ModuleDefinitionFile>
       <GenerateDebugInformation>false</GenerateDebugInformation>
       <SubSystem>Windows</SubSystem>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalDependencies>lib\obse.lib;lib\common.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <AdditionalLibraryDirectories>
       </AdditionalLibraryDirectories>
@@ -98,6 +112,7 @@
       <FullProgramDatabaseFile>false</FullProgramDatabaseFile>
       <RandomizedBaseAddress>false</RandomizedBaseAddress>
       <TurnOffAssemblyGeneration>true</TurnOffAssemblyGeneration>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
     </Link>
     <PostBuildEvent>
       <Message>
@@ -109,20 +124,20 @@
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
     </ProjectReference>
     <ProjectReference>
-      <UseLibraryDependencyInputs>
-      </UseLibraryDependencyInputs>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <AdditionalOptions>%(AdditionalOptions)</AdditionalOptions>
+      <AdditionalOptions>
+      </AdditionalOptions>
       <AdditionalIncludeDirectories>$(SolutionDir);$(SolutionDir)..\;$(SolutionDir)..\common\;$(SolutionDir)..\obse\;$(SolutionDir)..\obse\obse;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;OBLIVION_VERSION=0x010201A0;OBLIVION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;OBLIVION_VERSION=0x010201A0;OBLIVION;_CRT_NO_VA_START_VALIDATION;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <DebugInformationFormat>None</DebugInformationFormat>
-      <ForcedIncludeFiles>stdafx.h;obse_common/obse_prefix.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <ForcedIncludeFiles>stdafx.h;obse_common/obse_prefix.h</ForcedIncludeFiles>
       <CompileAs>CompileAsCpp</CompileAs>
       <LanguageStandard>stdcpplatest</LanguageStandard>
       <Optimization>Full</Optimization>
@@ -130,7 +145,8 @@
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
       <UndefinePreprocessorDefinitions>
       </UndefinePreprocessorDefinitions>
-      <DisableLanguageExtensions>false</DisableLanguageExtensions>
+      <DisableLanguageExtensions>
+      </DisableLanguageExtensions>
       <OmitFramePointers>true</OmitFramePointers>
       <ExceptionHandling>Sync</ExceptionHandling>
       <MinimalRebuild>false</MinimalRebuild>
@@ -139,12 +155,18 @@
       <CompileAsManaged>false</CompileAsManaged>
       <CompileAsWinRT>false</CompileAsWinRT>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
-      <PrecompiledHeaderFile>obse/stdafx.h</PrecompiledHeaderFile>
-      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <PrecompiledHeaderFile>
+      </PrecompiledHeaderFile>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
       <OmitDefaultLibName>true</OmitDefaultLibName>
+      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <StringPooling>true</StringPooling>
+      <BasicRuntimeChecks />
+      <EnableParallelCodeGeneration>true</EnableParallelCodeGeneration>
+      <EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>lib\obse.lib;lib\common.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>
       </AdditionalLibraryDirectories>
       <ModuleDefinitionFile>exports.def</ModuleDefinitionFile>
@@ -155,9 +177,9 @@
       <TargetMachine>MachineX86</TargetMachine>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <LinkErrorReporting>PromptImmediately</LinkErrorReporting>
-      <IgnoreAllDefaultLibraries>
-      </IgnoreAllDefaultLibraries>
-      <ImportLibrary>$(OutDir)$(TargetName).lib</ImportLibrary>
+      <IgnoreAllDefaultLibraries>false</IgnoreAllDefaultLibraries>
+      <ImportLibrary>
+      </ImportLibrary>
       <LinkTimeCodeGeneration>UseLinkTimeCodeGeneration</LinkTimeCodeGeneration>
       <NoEntryPoint>false</NoEntryPoint>
       <FullProgramDatabaseFile>false</FullProgramDatabaseFile>
@@ -166,8 +188,7 @@
     </Link>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
-      <UseLibraryDependencyInputs>
-      </UseLibraryDependencyInputs>
+      <UseLibraryDependencyInputs>false</UseLibraryDependencyInputs>
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -188,11 +209,15 @@
     <ClCompile Include="..\obse\obse\GameExtraData.cpp" />
     <ClCompile Include="..\obse\obse\GameForms.cpp" />
     <ClCompile Include="..\obse\obse\GameObjects.cpp" />
+    <ClCompile Include="..\obse\obse\GameOSDepend.cpp" />
     <ClCompile Include="..\obse\obse\GameTasks.cpp" />
     <ClCompile Include="..\obse\obse\GameTypes.cpp" />
+    <ClCompile Include="..\obse\obse\ModTable.cpp" />
     <ClCompile Include="..\obse\obse\NiAPI.cpp" />
     <ClCompile Include="..\obse\obse\NiNodes.cpp" />
+    <ClCompile Include="..\obse\obse\NiRTTI.cpp" />
     <ClCompile Include="..\obse\obse\Script.cpp" />
+    <ClCompile Include="..\obse\obse\Utilities.cpp" />
     <ClCompile Include="FormManager.cpp" />
     <ClCompile Include="Interfaces.cpp" />
     <ClCompile Include="Logging.cpp" />
@@ -207,6 +232,8 @@
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\obse\obse\GameRTTI_1_1.inl" />
+    <None Include="..\obse\obse\GameRTTI_1_2.inl" />
     <None Include="..\obse\obse\GameRTTI_1_2_416.inl" />
     <None Include="exports.def" />
   </ItemGroup>
@@ -218,13 +245,18 @@
     <ClInclude Include="..\obse\obse\GameExtraData.h" />
     <ClInclude Include="..\obse\obse\GameForms.h" />
     <ClInclude Include="..\obse\obse\GameObjects.h" />
-    <ClInclude Include="..\obse\obse\GameRTTI.h" />
+    <ClInclude Include="..\obse\obse\GameOSDepend.h" />
     <ClInclude Include="..\obse\obse\GameTasks.h" />
     <ClInclude Include="..\obse\obse\GameTypes.h" />
+    <ClInclude Include="..\obse\obse\ModTable.h" />
     <ClInclude Include="..\obse\obse\NiAPI.h" />
     <ClInclude Include="..\obse\obse\NiNodes.h" />
+    <ClInclude Include="..\obse\obse\NiRTTI.h" />
+    <ClInclude Include="..\obse\obse\ParamInfos.h" />
     <ClInclude Include="..\obse\obse\PluginAPI.h" />
     <ClInclude Include="..\obse\obse\Script.h" />
+    <ClInclude Include="..\obse\obse\Utilities.h" />
+    <ClInclude Include="IniManager.hpp" />
     <ClInclude Include="MemoryCache.hpp" />
     <ClInclude Include="FormManager.hpp" />
     <ClInclude Include="Interfaces.hpp" />
@@ -232,10 +264,7 @@
     <ClInclude Include="ScriptCommands.hpp" />
     <ClInclude Include="json.hpp" />
     <ClInclude Include="JsonManager.hpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="lib\common.lib" />
-    <Library Include="lib\obse.lib" />
+    <ClInclude Include="SimpleIni.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

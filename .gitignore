@@ -2,10 +2,12 @@
 .vs
 Debug
 Release
+Output
 lib
 obse
 common
 json.hpp
+SimpleIni.h
 *.obj
 *.exe
 *.json

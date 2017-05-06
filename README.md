@@ -1,41 +1,21 @@
 ## Punchinello
-An overwhelmingly bloatsome OBSE plugin to provide JSON file interface for Oblivion scripts, born out of my own need for a reasonable alternative to INI files. [An open source JSON library](https://github.com/nlohmann/json) is used for the actual JSON file interaction.
+An overwhelmingly underwhelming OBSE-plugin-wannabe contraption that, while already being an excercise in futility in its own right, also persistently keeps dreaming of one day being able to provide JSON and INI file interfaces for Oblivion scripts, with support for both reading and writing of values. It would be worth a note that my skills when it comes to programming of any description are absolutely horrible, so whatever there may be here, it will probably *not* look pretty and will peform even worse than it looks. Indeed! You definitely *can* benefit from closing that browser tab. Just click the button...
 
 On another note, [Punchinello](https://www.youtube.com/watch?v=ufIE9B3H85k) is also a march written by the British composer William Rimmer in the early 20<sup>th</sup> century.
 
-It would be worth a note that my skills at C++ are absolutely horrible, so that whatever there may be here, it will probably not look pretty and will peform even worse than it looks.
+##### Third-Party Libraries
+The plugin uses the following third-party libraries, available at Github, to provide the actual functionality:
+* [nlohmann/json](https://github.com/nlohmann/json) is used for JSON interaction
+* [brofield/simpleini](https://github.com/brofield/simpleini) is used for INI interaction
 
-### Commands
-The commands listed below are available for use in the Oblivion in-game scripting language. The following commands are available for reading from JSON files:
+##### Compiling the Plugin
+The plugin has been compiled using the OBSE 0021.4 source code from [Alenett/TES-Reloaded-Source](https://github.com/Alenett/TES-Reloaded-Source), both the 'obse' and 'common' sources were the ones from there. Microsoft Visual Studio Community 2017 was used for compiling, on Windows 10 using Windows SDK 10. Folder structure:
 
-    (value:string_var) JsonGetString filename:string_var key:string_var default_return:string_var
-    (value:float)      JsonGetFloat  filename:string_var key:string_var default_return:float
-    (value:int)        JsonGetInt    filename:string_var key:string_var default_return:int
-    (value:ref)        JsonGetForm   filename:string_var key:string_var default_return:ref
+    ...\common\
+    ...\obse\
+    ...\Punchinello\[this-repo-here]
 
-The following commands are available for writing to JSON files:
+Compiling should be straightforward. Building the solution, Punchinello.sln, should be enough. The 'common' project might need to be retargeted and the SDK version might need to be checked. Other than that, there should not be huge issues.
 
-    (nothing) JsonSetString  filename:string_var  key:string_var  value:string_var
-    (nothing) JsonSetFloat   filename:string_var  key:string_var  value:float
-    (nothing) JsonSetInt     filename:string_var  key:string_var  value:int
-    (nothing) JsonSetForm    filename:string_var  key:string_var  value:ref
-
-The following miscellaneous commands are available:
-
-    (nothing)        JsonEraseKey   filename:string_var  key:string_var
-    (keys:array_var) JsonListKeys   filename:string_var  key:string_var
-
-### Compiling the Plugin
-For my own sake, I keep forgetting things. Folder structure:
-
-    ...\[project-folder]\
-    ...\[project-folder]\common\
-    ...\[project-folder]\obse\
-    ...\[project-folder]\obse\obse\
-    ...\[project-folder]\Punchinello\[this-repo]
-From obse and common, the respective .lib files need to be copied to:
-
-    ...\[project-folder]\Punchinello\lib\obse.lib
-    ...\[project-folder]\Punchinello\lib\common.lib
-
-Compiled with Microsoft Visual Studio Community 2017, Windows SDK 10 and Windows 10.
+##### Added Commands / Functionality
+See the Github wiki for added commands and example usage.

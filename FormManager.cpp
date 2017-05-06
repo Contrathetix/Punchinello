@@ -16,8 +16,8 @@ namespace Punchinello::FormManager {
 			return;
 		}
 
-		strcpy(RefIDString, StringValue.substr(0, Separator).c_str());
-		strcpy(ModName, StringValue.substr(Separator + 1).c_str());
+		strcpy_s(RefIDString, StringValue.substr(0, Separator).c_str());
+		strcpy_s(ModName, StringValue.substr(Separator + 1).c_str());
 
 		if (_stricmp(ModName, "NONE") != 0) { // "NONE" for dynamic refs
 			ModIndex = ModTable::Get().GetModIndex(ModName);
