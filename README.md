@@ -3,12 +3,12 @@ An overwhelmingly underwhelming OBSE-plugin-wannabe contraption that, while alre
 
 On another note, [Punchinello](https://www.youtube.com/watch?v=ufIE9B3H85k) is also a march written by the British composer William Rimmer in the early 20<sup>th</sup> century.
 
-##### Third-Party Libraries
+### Third-Party Libraries
 The plugin uses the following third-party libraries, available at Github, to provide the actual functionality:
 * [nlohmann/json](https://github.com/nlohmann/json) is used for JSON interaction
 * [brofield/simpleini](https://github.com/brofield/simpleini) is used for INI interaction
 
-##### Compiling the Plugin
+### Compiling the Plugin
 The plugin has been compiled using the OBSE 0021.4 source code from [Alenett/TES-Reloaded-Source](https://github.com/Alenett/TES-Reloaded-Source), both the 'obse' and 'common' sources were the ones from there. Microsoft Visual Studio Community 2017 was used for compiling, on Windows 10 using Windows SDK 10. Folder structure:
 
     ...\common\
@@ -17,5 +17,5 @@ The plugin has been compiled using the OBSE 0021.4 source code from [Alenett/TES
 
 Compiling should be straightforward. Building the solution, Punchinello.sln, should be enough. The 'common' project might need to be retargeted and the SDK version might need to be checked. Other than that, there should not be huge issues.
 
-##### Added Commands / Functionality
+### Added Commands / Functionality
 See the Github wiki for added commands and example usage.
